@@ -5,17 +5,28 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract Token is ERC20 {
   //add minter variable
+  address public minter;
 
   //add minter changed event
+  event MinterChanged(address indexed from, address to);
 
-  constructor() public payable ERC20("Name", "Symbol") {
-    //asign initial minter
+  constructor() public payable ERC20("Oyincode Cryptocurrency", "OCC") {
+    //assign initial minter
+    minter = msg.sender;
   }
 
   //Add pass minter role function
+  function passMinterRole(address dBank) public returns (bool) {
+    require(msg.sender==minter, 'Error, only ownerr can change minter role');
+    minter = dbank;
+
+    emit MinterChanged(msg.sender, dBank);
+    return true
+  }
 
   function mint(address account, uint256 amount) public {
     //check if msg.sender have minter role
+    require(msg.sender==minter, 'Error, msg.sender does not have minter role');
 		_mint(account, amount);
 	}
 }

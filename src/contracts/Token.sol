@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.6.0 <0.8.0;
+pragma solidity >=0.4.16 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
@@ -18,10 +18,10 @@ contract Token is ERC20 {
   //Add pass minter role function
   function passMinterRole(address dBank) public returns (bool) {
     require(msg.sender==minter, 'Error, only ownerr can change minter role');
-    minter = dbank;
+    minter = dBank;
 
     emit MinterChanged(msg.sender, dBank);
-    return true
+    return true;
   }
 
   function mint(address account, uint256 amount) public {

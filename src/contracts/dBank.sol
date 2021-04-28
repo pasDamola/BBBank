@@ -10,6 +10,7 @@ contract dBank {
 
   //add mappings
   mapping(address => uint) public etherBalanceOf;
+  mapping(address => uint) public depositStart;
 
   //add events
 
@@ -22,10 +23,10 @@ contract dBank {
   function deposit() payable public {
     //check if msg.sender didn't already deposited funds
     //check if msg.value is >= than 0.01 ETH
-    etherBalanceOf[msg.sender] = etherBalanceOf[msg.value] + msg.value;
+    etherBalanceOf[msg.sender] = etherBalanceOf[msg.sender] + msg.value;
     //increase msg.sender ether deposit balance
     //start msg.sender hodling time
-
+    depositStart[msg.sender] = depositStart[msg.sender] + block.timestamp;
     //set msg.sender deposit status to true
     //emit Deposit event
   }
